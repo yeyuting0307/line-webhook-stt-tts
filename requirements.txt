@@ -1,0 +1,20 @@
+numpy==1.26.0
+pandas==2.1.1
+urllib3==1.26.16
+requests==2.31.0
+DateTime==5.2
+Flask==2.3.3
+Werkzeug==2.3.7
+Pillow==10.0.1
+future==0.18.3
+aenum == 3.1.15
+gcsfs==2023.9.1
+python-dotenv==1.0.0
+pydantic==2.3.0
+google.cloud.storage==2.10.0
+google-cloud-speech==2.21.1
+google.cloud.texttospeech==2.14.2
+google-cloud-aiplatform==1.28.1
+line-bot-sdk==3.5.0
+ffmpeg-python==0.2.0
+pydub==0.25.1
