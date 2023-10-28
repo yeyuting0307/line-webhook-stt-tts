@@ -11,6 +11,8 @@ VERSION := 1.0.0
 DEV_DEPLOY_PROJECT := 
 PROD_DEPLOY_PROJECT := 
 DEPLOY_REGION := asia-east1
+PROD_ARTIFACT_REPO_NAME := product
+DEV_ARTIFACT_REPO_NAME := develop
 
 ## 3. <Deploy Details>
 CONTAINER_MEMORY := 512Mi
@@ -60,13 +62,13 @@ DEPLOY_ENV ?= dev
 
 ## Artifact Setting
 ifeq ($(DEPLOY_ENV), prod)
-ARTIFACT_ENV := product
+ARTIFACT_ENV := $(PROD_ARTIFACT_REPO_NAME)
 DEPLOY_PROJECT := $(PROD_DEPLOY_PROJECT)
 else ifeq ($(DEPLOY_ENV), dev)
-ARTIFACT_ENV := develop
+ARTIFACT_ENV := $(DEV_ARTIFACT_REPO_NAME)
 DEPLOY_PROJECT := $(DEV_DEPLOY_PROJECT)
 else
-ARTIFACT_ENV := develop
+ARTIFACT_ENV := $(DEV_ARTIFACT_REPO_NAME)
 endif
 
 ## Cloud Run Deploy Flag
@@ -171,10 +173,10 @@ build-gcloud: CONTAINER_REGISTRY_IMAGE
 build-deploy-gcp: gcp-auth Dockerfile requirements.txt ARTIFACT_REPO CONTAINER_NAME VERSION DEPLOY_PROJECT DEPLOY_ENV ARTIFACT_REGISTRY_IMAGE CONTAINER_REGISTRY_IMAGE
 	@echo '===================='
 	@echo 'How to build images:'
-	@echo '  1) docker build --> Artifact Registry (Recommended)'
-	@echo '  2) gcloud build submit --> Container Registry'
-	@echo '  3) SKIP build, directly deploy (with current Artifact image)'
-	@echo '  4) SKIP build, directly deploy (with current Container Registry image)'
+	@echo '  1) docker build --> Artifact Registry'
+	@echo '  2) gcloud builds submit --> Container Registry (Recommended)'
+	@echo '  3) SKIP build, directly deploy (with latest Artifact image)'
+	@echo '  4) SKIP build, directly deploy (with latest Container Registry image)'
 	@while read -e -p 'Choose the build option(1/2/3/4) or Ctrl+C to exit: ' value ;  do \
 		case $$value in \
 		1) \
